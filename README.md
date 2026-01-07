@@ -7,8 +7,14 @@ A from scratch implementation of ECDH shoiwng how towo parties can esxtablish a 
 ![image02](https://github.com/user-attachments/assets/f077263b-87b5-4105-a69d-c1a0c6c422b7)
 
 ```
-[ALICE] Sends packet to BOB: KW1 + (20, 61)
-[BOB] Sends packet to ALICE: KW1 + (42, 39)
+[ALICE] and [BOB] agree to a curve, in this case there is only secp256k1.
+[ALICE] and [BOB] both use a specified point G that comes with the curve.
+
+[ALICE] and [BOB] then both calculate their k * G,  A and B respectively.
+[ALICE] Sends their A to BOB: (20, 61)
+[BOB] Sends their B to ALICE: (42, 39)
+
+[ALICE] and [BOB] then perform A * k and to find the shared secret.
 
 [ALICE] Shared secret: (8, 4)
 [BOB] Shared secret: (8, 4)
