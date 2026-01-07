@@ -10,7 +10,7 @@ A from scratch implementation of ECDH shoiwng how towo parties can esxtablish a 
 [ALICE] and [BOB] agree to a curve, in this case there is only secp256k1.
 [ALICE] and [BOB] both use a specified point G that comes with the curve.
 
-[ALICE] and [BOB] then both calculate their k * G,  A and B respectively.
+[ALICE] and [BOB] then both calculate their k * G,  A and B respectively. k = private_key, k * G = public_key
 [ALICE] Sends their A to BOB: (20, 61)
 [BOB] Sends their B to ALICE: (42, 39)
 
