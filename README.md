@@ -1,6 +1,6 @@
 # Elliptic Curve Diffie-Hellman (ECDH) Key Exchange
 
-A from scratch implementation of ECDH shoiwng how two parties can esxtablish a secure connection over the internet. This includes a man-in-the-middle eaves drop to show what a malicious agent would see.
+A from scratch implementation of ECDH showing how two parties can establish a secure connection over the internet. This includes a man-in-the-middle eavesdropper to show what a malicious agent would see.
 
 ## Demo Output
 
@@ -15,7 +15,8 @@ EXAMPLE
 [ALICE] Sends their A to BOB: (20, 61)
 [BOB] Sends their B to ALICE: (42, 39)
 
-[ALICE] and [BOB] then perform A * k and to find the shared secret.
+[ALICE] computes their shared secret: b_secret × A
+[BOB] computes their shared secret: a_secret × B
 
 [ALICE] Shared secret: (8, 4)
 [BOB] Shared secret: (8, 4)
@@ -111,7 +112,7 @@ This exact protocol (with 256-bit numbers) secures:
 
 ## The Internet Class
 
-All communication bewteen ALICE and BOB is routed through a shared `Internet` class that logs everything, there is no high level class coordination between them. 
+All communication between ALICE and BOB is routed through a shared `Internet` class that logs everything, there is no high level class coordination between them. 
 
 ```python
 class Internet:
