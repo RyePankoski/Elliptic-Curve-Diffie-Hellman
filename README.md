@@ -1,6 +1,6 @@
 # Elliptic Curve Diffie-Hellman (ECDH) Key Exchange
 
-A from scratch implementation of ECDH shoiwng how towo parties can esxtablish a secure connection over the internet. This includes a man-in-the-middle eaves drop to show what a malicious agent would see.
+A from scratch implementation of ECDH shoiwng how two parties can esxtablish a secure connection over the internet. This includes a man-in-the-middle eaves drop to show what a malicious agent would see.
 
 ## Demo Output
 
