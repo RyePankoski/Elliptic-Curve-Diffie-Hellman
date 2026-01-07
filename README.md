@@ -6,6 +6,7 @@ A from scratch implementation of ECDH shoiwng how towo parties can esxtablish a 
 
 ![image02](https://github.com/user-attachments/assets/f077263b-87b5-4105-a69d-c1a0c6c422b7)
 
+EXAMPLE 
 ```
 [ALICE] and [BOB] agree to a curve, in this case there is only secp256k1.
 [ALICE] and [BOB] both use a specified point G that comes with the curve.
@@ -21,7 +22,6 @@ A from scratch implementation of ECDH shoiwng how towo parties can esxtablish a 
 
 Man-in-the-middle saw: [(20, 61), (42, 39)]
 ```
-
 Alice and Bob computed the same secret `(8, 4)`. The eavesdropper saw everything transmitted but **cannot compute the shared secret**.
 
 ---
@@ -34,7 +34,7 @@ Alice and Bob computed the same secret `(8, 4)`. The eavesdropper saw everything
 **Base Point:** G = (68, 74)
 
 **Core Operations:**
-- **Point Addition:** Two points on the curve → third point
+- **Point Addition:** We use modular arithmetic to find points.
 - **Scalar Multiplication:** k × G = G + G + ... (k times)
 - **One-Way Property:** Easy to compute k × G, hard to find k from result
 
@@ -53,9 +53,7 @@ Alice and Bob computed the same secret `(8, 4)`. The eavesdropper saw everything
 
 **Eavesdropper needs:**
 - Secret `a` or `b` to compute shared secret
-- Must solve: "G was added to itself how many times to get A?" (discrete logarithm problem)
-- Computationally infeasible with large numbers
-
+- This is a good example of the discrete logarithm problem, in that it is computationally infeasible to reverse this operation.
 ---
 
 **Key Functions:**
@@ -73,8 +71,6 @@ find_mod_inv(n, p)          # Modular inverse for division
 ```bash
 python main.py
 ```
-
-Watch Alice and Bob establish a shared secret over a public channel!
 
 ---
 
