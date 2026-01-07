@@ -92,7 +92,7 @@ python main.py
 
 ---
 
-**The math is identical—just bigger**
+**The math is identical in real systems, just bigger**
 
 This implementation uses mod 97 (not 17) because larger primes have points with higher order, avoiding "point at infinity" edge cases.
 
@@ -111,7 +111,7 @@ This exact protocol (with 256-bit numbers) secures:
 
 ## The Internet Class
 
-All communication routes through a shared `Internet` class that logs everything:
+All communication bewteen ALICE and BOB is routed through a shared `Internet` class that logs everything, there is no high level class coordination between them. 
 
 ```python
 class Internet:
