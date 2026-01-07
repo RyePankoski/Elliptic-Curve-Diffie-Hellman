@@ -21,7 +21,7 @@ EXAMPLE
 [ALICE] Shared secret: (8, 4)
 [BOB] Shared secret: (8, 4)
 
-Man-in-the-middle saw: [(20, 61), (42, 39)]
+Man-in-the-middle saw: [secp256k1, (20, 61), (42, 39)]
 ```
 Alice and Bob computed the same secret `(8, 4)`. The eavesdropper saw everything transmitted but **cannot compute the shared secret**.
 
