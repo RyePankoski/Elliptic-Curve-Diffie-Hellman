@@ -54,7 +54,7 @@ Alice and Bob computed the same secret `(8, 4)`. The eavesdropper saw everything
 
 **Eavesdropper needs:**
 - Secret `a` or `b` to compute shared secret
-- This is a good example of the discrete logarithm problem, in that it is computationally infeasible to reverse this operation.
+- This is a good example of the elliptic curve discrete logarithm problem (ECDLP), in that it is computationally infeasible to reverse this operation.
 ---
 
 **Key Functions:**
