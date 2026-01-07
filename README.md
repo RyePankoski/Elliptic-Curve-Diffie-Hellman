@@ -4,6 +4,8 @@ A from-scratch implementation of ECDH demonstrating how two parties establish a 
 
 ## Demo Output
 
+![image02](https://github.com/user-attachments/assets/f077263b-87b5-4105-a69d-c1a0c6c422b7)
+
 ```
 [ALICE] Sends packet to BOB: KW1 + (20, 61)
 [BOB] Sends packet to ALICE: KW1 + (42, 39)
