@@ -1,6 +1,6 @@
 # Elliptic Curve Diffie-Hellman (ECDH) Key Exchange
 
-A from-scratch implementation of ECDH demonstrating how two parties establish a shared secret over a public channel—while eavesdroppers watch but cannot break it.
+A from scratch implementation of ECDH shoiwng how towo parties can esxtablish a secure connection over the internet. This includes a man-in-the-middle eaves drop to show what a malicious agent would see.
 
 ## Demo Output
 
@@ -52,17 +52,6 @@ Alice and Bob computed the same secret `(8, 4)`. The eavesdropper saw everything
 
 ---
 
-## Code Structure
-
-```
-├── main.py          # Entry point
-├── controller.py    # Simulation orchestrator
-├── person.py        # Alice/Bob protocol logic
-├── internet.py      # Public channel + eavesdropper
-├── functions.py     # Elliptic curve mathematics
-└── tables.py        # Constants
-```
-
 **Key Functions:**
 ```python
 scalar_multiply(k, point)   # Compute k × point
@@ -86,12 +75,12 @@ Watch Alice and Bob establish a shared secret over a public channel!
 ## Educational Features
 
 **Implemented from scratch:**
-- ✅ Modular arithmetic (no crypto libraries)
-- ✅ Point addition formulas (tangent/chord method)
-- ✅ Scalar multiplication
-- ✅ Edge cases (point at infinity, y=0)
-- ✅ Full ECDH protocol
-- ✅ Man-in-the-middle simulation
+-  Modular arithmetic (no crypto libraries)
+-  Point addition formulas (tangent/chord method)
+-  Scalar multiplication
+-  Edge cases (point at infinity, y=0)
+-  Full ECDH protocol
+-  Man-in-the-middle simulation
 
 **Learn:**
 - Finite field arithmetic (mod 97)
@@ -101,20 +90,9 @@ Watch Alice and Bob establish a shared secret over a public channel!
 
 ---
 
-## From Toy to Production
+**The math is identical—just bigger**
 
-| Aspect | This Implementation | Real secp256k1 |
-|--------|-------------------|----------------|
-| Prime | 97 | 2²⁵⁶ - 2³² - 977 |
-| Coordinates | 2 digits | 77 digits |
-| Secrets | 1-2 digits | 77 digits |
-| Security | Toy (breakable) | Unbreakable* |
-
-*With current technology
-
-**The math is identical—just bigger numbers!**
-
-This implementation uses mod 97 (not 17) because larger primes have points with higher order, avoiding frequent "point at infinity" edge cases while remaining hand-calculable.
+This implementation uses mod 97 (not 17) because larger primes have points with higher order, avoiding "point at infinity" edge cases.
 
 ---
 
