@@ -1,121 +1,142 @@
 # Elliptic Curve Diffie-Hellman (ECDH) Key Exchange
 
-A from scratch implementation of ECDH showing how two parties can establish a secure connection over the internet. This includes a man-in-the-middle eavesdropper to show what a malicious agent would see.
+A from-scratch Python implementation of ECDH demonstrating how two parties establish a shared secret over an insecure channel. Includes a man-in-the-middle observer to show what an eavesdropper would see.
 
-If you would like to see a very detailed write up what exactly is going on, and why this works so well in cryptography, see the bottom of the readme.
+**For a detailed mathematical explanation of why this works, see the accompanying paper: [How to send a secret message](link-to-paper)**
+
+---
 
 ## Demo Output
 
 ![image02](https://github.com/user-attachments/assets/f077263b-87b5-4105-a69d-c1a0c6c422b7)
 
-EXAMPLE 
 ```
-[ALICE] and [BOB] agree to a curve, in this case there is only secp256k1.
-[ALICE] and [BOB] both use a specified point G that comes with the curve.
+[ALICE] and [BOB] agree on curve parameters and base point G
+[ALICE] Generates secret a, computes public key A = a×G
+[BOB] Generates secret b, computes public key B = b×G
+[ALICE] Sends A to BOB: (20, 61)
+[BOB] Sends B to ALICE: (42, 39)
+[ALICE] Computes shared secret: a×B = (8, 4)
+[BOB] Computes shared secret: b×A = (8, 4)
 
-[ALICE] and [BOB] then both calculate their k * G,  A and B respectively. k = private_key, k * G = public_key
-[ALICE] Sends their A to BOB: (20, 61)
-[BOB] Sends their B to ALICE: (42, 39)
-
-[ALICE] computes their shared secret: b_secret × A
-[BOB] computes their shared secret: a_secret × B
-
-[ALICE] Shared secret: (8, 4)
-[BOB] Shared secret: (8, 4)
-
-Man-in-the-middle saw: [secp256k1, (20, 61), (42, 39)]
+Man-in-the-middle saw: [curve params, (20, 61), (42, 39)]
+Cannot compute (8, 4) without knowing a or b
 ```
-Alice and Bob both arrive at the same secret point "(8,4)". The eavesdropper saw everything that was transmitted, but without the secret internal parameters, cannot compute the secret point.
+
+Alice and Bob arrive at the same shared secret point `(8, 4)` without ever transmitting their private keys. The eavesdropper sees all public communications but cannot compute the shared secret—this is the **elliptic curve discrete logarithm problem** (ECDLP) at work.
 
 ---
 
-## How It Works
-
-### The Math
+## Implementation Details
 
 **Curve:** y² = x³ + 7 (mod 97)  
 **Base Point:** G = (68, 74)
 
-**Core Operations:**
-- **Point Addition:** We use modular arithmetic to find points.
-- **Scalar Multiplication:** k × G = G + G + ... (k times)
-- **One-Way Property:** Easy to compute k × G, hard to find k from result
+This toy example uses mod 97 for readability. Real systems (secp256k1, P-256) use 256-bit primes with identical mathematics.
 
-### The Protocol
+### Core Operations
 
-1. **Alice:** Picks secret `a`, computes public key `A = a × G`, sends A
-2. **Bob:** Picks secret `b`, computes public key `B = b × G`, sends B
-3. **Alice:** Computes shared secret `a × B`
-4. **Bob:** Computes shared secret `b × A`
-5. **Both get the same result:** `(ab) × G`
-
-This is an example of the commutative property in action. It encodes the secret parameter, while keeping it nigh impossible for a malicious agent to infer or compute.
-
-The eavesdropper would need:
-- Secret `a` or `b` to compute shared secret
-- This is a good example of the elliptic curve discrete logarithm problem (ECDLP), in that it is computationally infeasible to reverse this operation.
-
-But the only thing the eavesdropper sees is:
-- G, A, B (all public)
-
-**Key Functions:**
+**Point Addition** — Geometric chord-and-tangent method:
 ```python
-scalar_multiply(k, point)   # Compute k × point
-add_points(p1, p2)          # Point addition
-double_point(p)             # Point doubling
-find_mod_inv(n, p)          # Modular inverse for division
+add_points(P, Q)     # Find third intersection point, reflect
 ```
 
-## Running
+**Scalar Multiplication** — Repeated point addition:
+```python
+scalar_multiply(k, P)  # Compute P + P + ... + P (k times)
+```
+
+**Modular Arithmetic:**
+```python
+find_mod_inv(n, p)   # Extended Euclidean algorithm for division
+```
+
+**Edge Cases Handled:**
+- Point at infinity (group identity)
+- Point doubling (tangent case)
+- Vertical lines (y-coordinate = 0)
+
+---
+
+## The Protocol
+
+1. **Public Setup:** Alice and Bob agree on curve equation, prime p, and base point G
+2. **Private Keys:** Alice picks secret `a`, Bob picks secret `b`
+3. **Public Keys:** Alice computes `A = a×G`, Bob computes `B = b×G`
+4. **Exchange:** Alice sends A → Bob, Bob sends B → Alice (both public)
+5. **Shared Secret:** 
+   - Alice computes `a×B = a×(b×G) = (ab)×G`
+   - Bob computes `b×A = b×(a×G) = (ab)×G`
+   - Both arrive at the same point
+
+**Security:** An eavesdropper sees G, A, and B but cannot compute `(ab)×G` without solving the ECDLP—finding `a` from `A = a×G` or `b` from `B = b×G`.
+
+---
+
+## Running the Code
+
 ```bash
 python main.py
 ```
+
+No external dependencies. Pure Python implementation of all cryptographic primitives.
+
 ---
 
 ## Educational Features
 
-**Implemented from scratch:**
-- Modular arithmetic (no crypto libraries)
-- Point addition formulas (tangent/chord method)
-- Scalar multiplication
-- Edge cases (point at infinity, y=0)
-- Full ECDH protocol
-- Man-in-the-middle simulation
-- Finite field arithmetic (mod 97)
-- Elliptic curve geometry
-- Discrete logarithm hardness
-- Public-key cryptography principles
+This implementation demonstrates:
 
----
+**No crypto libraries** — All math implemented from scratch  
+**Finite field arithmetic** — Modular addition, multiplication, inversion  
+**Elliptic curve geometry** — Point addition using chord/tangent formulas  
+**Scalar multiplication** — Efficient double-and-add algorithm  
+**Full ECDH protocol** — End-to-end key exchange  
+**Man-in-the-middle simulation** — Proves the security model  
 
-## Why This Matters
+### The `Internet` Class
 
-This exact protocol (with 256-bit numbers) secures:
-- HTTPS/TLS (web browsing)
-- Signal/WhatsApp (messaging)
-- Bitcoin/Ethereum (transactions)
-- SSH (remote access)
-- VPNs (network tunnels)
+All communication is routed through a shared `Internet` object that logs every transmission:
 
-**The math is identical in real systems, just a lot bigger**
-
-This implementation uses mod 97 (not 17) because larger primes have points with higher order, avoiding "point at infinity" edge cases. Real systems use gigantic primes.
-
----
-
-## The Internet Class
-
-All communication between ALICE and BOB is routed through a shared `Internet` class that logs everything, there is no high level class coordination between them. 
 ```python
 class Internet:
     messages = []              # Message queue
-    man_in_the_middle = []     # What Eve sees
+    man_in_the_middle = []     # Everything Eve sees
 ```
 
-This **proves** the security model: Alice and Bob have no secret channel. Everything is public, yet the shared secret remains private. This is the magic of ECDH.
-
-[How to send a secret message-1.pdf](https://github.com/user-attachments/files/24510665/How.to.send.a.secret.message-1.pdf)
+Alice and Bob have **no private channel**—everything goes through `Internet`. This proves the security model: even with complete visibility into all transmitted data, the shared secret remains private.
 
 ---
 
+## Real-World Applications
 
+This exact protocol (scaled to 256-bit numbers) secures:
+
+- **HTTPS/TLS** — Web browsing
+- **Signal/WhatsApp** — End-to-end encrypted messaging  
+- **Bitcoin/Ethereum** — Transaction signing
+- **SSH** — Secure remote access
+- **VPNs** — Encrypted network tunnels
+
+**The mathematics are identical, just scaled up.** This toy example uses a 7-bit prime (97); production systems use 256-bit primes (~10^77).
+
+---
+
+## Further Reading
+
+For a complete mathematical explanation covering:
+- Why finite fields resist inversion
+- The discrete logarithm problem  
+- Why prime moduli are required
+- How elliptic curves defeat index calculus
+- The geometric construction of point addition
+
+See the accompanying paper:
+[How.to.send.a.secret.message-1.pdf](https://github.com/user-attachments/files/24510702/How.to.send.a.secret.message-1.pdf)
+
+
+---
+
+## License
+
+MIT
