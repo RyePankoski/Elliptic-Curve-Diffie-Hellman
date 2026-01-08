@@ -142,10 +142,10 @@ f(x) = 2x mod 5. So when we plug in 3, we get 1.
 
 This is a demonstration of the non-monotonic nature of the field.
 
-So why does a finite field resist inverse operations? While the finite field does have an exploitable structure, unless you use index calculus, generic algorithms still face O(√p) hardness. We will discuss index calculus when we talk about why we use an elliptic curve.
+So why does a finite field resist inverse operations? 
+(While the finite field does have an exploitable structure, unless you use index calculus, generic algorithms still face O(√p) hardness. We will discuss index calculus when we talk about why we use an elliptic curve.)
 
 This is because the modulo operation destroys information about the history of the operation. 
-
 Lets take 2^5 in R. 
 
 **2^5 = 32**
@@ -153,17 +153,15 @@ Lets take 2^5 in R.
 Lets take 2^5 in our finite field F. 
 
 **2^5 = 32**
-
 **32 mod 5 = 2**
 
 So what information did we lose? Well, the result "2" could have come from any of these exponentiation functions:
 
-- 2^5
-- 2^9
-- 2^13
+- 2^5 mod 5 = 2
+- 2^9 mod 5 = 2 
+- 2^13 mod 5 = 2
 
 In R, the answer 32 contained implicit information about the exponent 5, but in our field, we only see the remainder 2.
-
 This is the important concept known as the **discrete log problem**.
 
 ---
@@ -190,7 +188,6 @@ A group on the other hand is a set that has only one operation, either addition 
 - **Inverses:** Every element has an inverse that cancels it. 
 
 Now lets talk about the curve in ECDH, why do we use a curve?
-
 Well to start, an elliptic curve over a finite field is defined by a function that might look like:
 
 **(y^2 ≡ x^3 + ax + b) mod p**
@@ -203,26 +200,22 @@ This is an important detail, pay close attention here:
 
 Our field, in this case is a set of numbers: F_p = {0,1,2,3,..., p-1}
 
-The crucial detail here is that factorization is possible for integers in (F_p)*, which index calculus exploits. So what do we do?
+The crucial detail here is that the elements of (F_p)* are integers, and integers can be factored into primes (e.g., 360 = 2³ × 3² × 5). 
+Index calculus exploits this integer factorization structure to solve discrete log in subexponential time.
 
+So what do we do?
 First we find the cartesian product of our field.
 
 **F_p x F_p = all possible coordinate pairs in our field. Lets call this set V.**
-
-However, there are no meaningful operations we can make on this set of coordinate pairs. (This is why its not a field) There is no single operation that works well for all them. This is where our equation comes in.
-
+However, there are no meaningful operations we can make on this set of coordinate pairs. 
+(This is why its not a field) There is no single operation that works well for all them. This is where our equation comes in.
 It defines a subset of our set V that has one well defined operation we can use, in this case it is **point addition**. 
-
 The equation **(y^2 ≡ x^3 + ax + b) mod p** both selects which pairs are valid (those satisfying the equation) and defines how to add them geometrically.
 
 But why go to all this trouble? Well here is the beautiful part:
-
 **Pairs have no factorization concept, and therefore it defeats index calculus.**
-
 But why don't these pairs factorize I hear you ask?
-
 It is because while integers have multiplicative structure, the points on our curve only have addition as their group operation (point addition.)
-
 There's no meaningful way to "multiply" two points to get a third point. You can only add them.
 
 Now we have an excellent trapdoor function: scalar multiplication (kP) is easy to compute forward, but the discrete log problem (finding k given P and kP) is extremely difficult to reverse.
