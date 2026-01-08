@@ -156,7 +156,7 @@ Lets take 2^5 in our finite field F.
 -
 *32 mod 5 = 2*
 
-So what information did we lose? Well, the result  "2" could have come from any of these exponentiation functions.
+So what information did we lose? Well, the result "2" could have come from any of these exponentiation functions.
 
 2^5
 2^9
