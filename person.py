@@ -95,5 +95,5 @@ class Person:
         print(f"[{self.name}] nGxk = {self.nGxk}")
         self.internet.send_message(self.name, self.partner, "NIL", "terminating")
         self.proceed = False
-        print(f"Eve saw {self.internet.eve}")
+        print(f"[EVE] saw {self.internet.eve}")
 
