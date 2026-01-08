@@ -209,6 +209,10 @@ But why go to all this trouble? Well here is the beautiful part:
 
 *Pairs have no factorization concept, and therefore it defeats index calculus.*
 
+But why don't these pairs factorize I hear you ask?
+It is because while integers have multiplicative structure, the points on our curve only have addition as their group operation (point addition.)
+There's no meaningful way to "multiply" two points to get a third point. You can only add them.
+
 Now we have an excellent trapdoor function: scalar multiplication (kP) is easy to compute forward, but the discrete log problem (finding k given P and kP) is extremely difficult to reverse
 
 
