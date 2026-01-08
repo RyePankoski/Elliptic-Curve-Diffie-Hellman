@@ -23,7 +23,7 @@ Man-in-the-middle saw: [curve params, (20, 61), (42, 39)]
 Cannot compute (8, 4) without knowing a or b
 ```
 
-Alice and Bob arrive at the same shared secret point `(8, 4)` without ever transmitting their private keys. The eavesdropper sees all public communications but cannot compute the shared secret—this is the **elliptic curve discrete logarithm problem** (ECDLP) at work.
+Alice and Bob arrive at the same shared secret point `(8, 4)` without ever transmitting their private keys. The eavesdropper sees all public communications but cannot compute the shared secret, this is the **elliptic curve discrete logarithm problem** (ECDLP) at work.
 
 ---
 
@@ -69,7 +69,7 @@ find_mod_inv(n, p)   # Extended Euclidean algorithm for division
    - Bob computes `b×A = b×(a×G) = (ab)×G`
    - Both arrive at the same point
 
-**Security:** An eavesdropper sees G, A, and B but cannot compute `(ab)×G` without solving the ECDLP—finding `a` from `A = a×G` or `b` from `B = b×G`.
+**Security:** An eavesdropper sees G, A, and B but cannot compute `(ab)×G` without solving the ECDLP, finding `a` from `A = a×G` or `b` from `B = b×G`.
 
 ---
 
