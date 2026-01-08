@@ -2,7 +2,7 @@
 
 A from-scratch Python implementation of ECDH demonstrating how two parties establish a shared secret over an insecure channel. Includes a man-in-the-middle observer to show what an eavesdropper would see.
 
-**For a detailed mathematical explanation of why this works, see the accompanying paper: [How to send a secret message](link-to-paper)**
+**For a detailed mathematical explanation of why this works, see the accompanying paper: [How.to.send.a.secret.message-1.pdf](https://github.com/user-attachments/files/24510702/How.to.send.a.secret.message-1.pdf)
 
 ---
 
@@ -130,10 +130,6 @@ For a complete mathematical explanation covering:
 - Why prime moduli are required
 - How elliptic curves defeat index calculus
 - The geometric construction of point addition
-
-See the accompanying paper:
-[How.to.send.a.secret.message-1.pdf](https://github.com/user-attachments/files/24510702/How.to.send.a.secret.message-1.pdf)
-
 
 ---
 
