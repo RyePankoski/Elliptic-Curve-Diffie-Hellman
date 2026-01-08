@@ -152,9 +152,9 @@ Lets take 2^5 in R.
 
 Lets take 2^5 in our finite field F. 
 
-*2^5 = 32*
+2^5 = 32
 -
-*32 mod 5 = 2*
+32 mod 5 = 2
 
 So what information did we lose? Well, the result "2" could have come from any of these exponentiation functions.
 
