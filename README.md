@@ -36,12 +36,12 @@ This toy example uses mod 97 for readability. Real systems (secp256k1, P-256) us
 
 ### Core Operations
 
-**Point Addition** — Geometric chord-and-tangent method:
+**Point Addition** : Geometric chord-and-tangent method:
 ```python
 add_points(P, Q)     # Find third intersection point, reflect
 ```
 
-**Scalar Multiplication** — Repeated point addition:
+**Scalar Multiplication** : Repeated point addition:
 ```python
 scalar_multiply(k, P)  # Compute P + P + ... + P (k times)
 ```
@@ -87,12 +87,12 @@ No external dependencies. Pure Python implementation of all cryptographic primit
 
 This implementation demonstrates:
 
-**No crypto libraries** — All math implemented from scratch  
-**Finite field arithmetic** — Modular addition, multiplication, inversion  
-**Elliptic curve geometry** — Point addition using chord/tangent formulas  
-**Scalar multiplication** — Efficient double-and-add algorithm  
-**Full ECDH protocol** — End-to-end key exchange  
-**Man-in-the-middle simulation** — Proves the security model  
+**No crypto libraries** : All math implemented from scratch  
+**Finite field arithmetic** : Modular addition, multiplication, inversion  
+**Elliptic curve geometry** : Point addition using chord/tangent formulas  
+**Scalar multiplication** : Efficient double-and-add algorithm  
+**Full ECDH protocol** : End-to-end key exchange  
+**Man-in-the-middle simulation** : Proves the security model  
 
 ### The `Internet` Class
 
@@ -104,7 +104,7 @@ class Internet:
     man_in_the_middle = []     # Everything Eve sees
 ```
 
-Alice and Bob have **no private channel**—everything goes through `Internet`. This proves the security model: even with complete visibility into all transmitted data, the shared secret remains private.
+Alice and Bob have **no private channel** :everything goes through `Internet`. This proves the security model: even with complete visibility into all transmitted data, the shared secret remains private.
 
 ---
 
@@ -112,11 +112,11 @@ Alice and Bob have **no private channel**—everything goes through `Internet`. 
 
 This exact protocol (scaled to 256-bit numbers) secures:
 
-- **HTTPS/TLS** — Web browsing
-- **Signal/WhatsApp** — End-to-end encrypted messaging  
-- **Bitcoin/Ethereum** — Transaction signing
-- **SSH** — Secure remote access
-- **VPNs** — Encrypted network tunnels
+- **HTTPS/TLS** : Web browsing
+- **Signal/WhatsApp** : End-to-end encrypted messaging  
+- **Bitcoin/Ethereum** : Transaction signing
+- **SSH** : Secure remote access
+- **VPNs** : Encrypted network tunnels
 
 **The mathematics are identical, just scaled up.** This toy example uses a 7-bit prime (97); production systems use 256-bit primes (~10^77).
 
