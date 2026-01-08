@@ -188,17 +188,47 @@ A group on the other hand is a set that has only one operation, either addition 
 - **Inverses:** Every element has an inverse that cancels it. 
 
 Now lets talk about the curve in ECDH, why do we use a curve?
-Well to start, an elliptic curve over a finite field is defined by a function that might look like:
+
+To start, an elliptic curve over a finite field is defined by a function that might look like:
 
 **(y^2 ≡ x^3 + ax + b) mod p**
 
 ### IMPORTANT DETAIL
 
-Well why cant we just use the finite prime field? Why do we care about the group defined by our elliptic curve? 
+Well why cant we just use the finite field F_p? Why do we care about the group defined by our elliptic curve? 
 
 This is an important detail, pay close attention here:
 
 Our field, in this case is a set of numbers: F_p = {0,1,2,3,..., p-1}
+
+Where p is an arbitrarily large prime.
+
+Why prime? Well it's important that all elements of the field are coprime with the modulus, otherwise you might end up with elements with no inverse.
+
+It's important for all elements to have an inverse for predicability and invertibility. It makes a field well behaved. 
+
+Where E x n = 1. 
+In R, any number is just n x n/1 = 1
+
+For example in a field F_5. 
+Each non zero element has an inverse.
+
+1 x 1 mod 5 = 1
+2 x 3 mod 5 = 1
+3 x 2 mod 5 = 1
+4 x 4 mod 5 = 1
+
+Now let's look at F_6. 
+
+2 has no inverse. You can try all numbers in the set and fail to find
+
+2 x n = y 
+where
+y mod 6 = 1
+
+Whoops, turns out that's not a field, it's actually called a ring. 
+
+Anyway,
 
 The crucial detail here is that the elements of (F_p)* are integers, and integers can be factored into primes (e.g., 360 = 2³ × 3² × 5). 
 Index calculus exploits this integer factorization structure to solve discrete log in subexponential time.
