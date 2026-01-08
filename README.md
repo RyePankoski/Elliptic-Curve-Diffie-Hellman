@@ -207,6 +207,7 @@ So what do we do?
 First we find the cartesian product of our field.
 
 **F_p x F_p = all possible coordinate pairs in our field. Lets call this set V.**
+-
 However, there are no meaningful operations we can make on this set of coordinate pairs. 
 (This is why its not a field) There is no single operation that works well for all them. This is where our equation comes in.
 It defines a subset of our set V that has one well defined operation we can use, in this case it is **point addition**. 
