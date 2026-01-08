@@ -23,7 +23,7 @@ EXAMPLE
 
 Man-in-the-middle saw: [secp256k1, (20, 61), (42, 39)]
 ```
-Alice and Bob computed the same secret `(8, 4)`. The eavesdropper saw everything transmitted but **cannot compute the shared secret**.
+Alice and Bob both arrive at the same secret point "(8,4)". The eavesdropper saw everything that was transmitted, but without the secret internal parameters, cannot compute the secret point.
 
 ---
 
@@ -47,15 +47,13 @@ Alice and Bob computed the same secret `(8, 4)`. The eavesdropper saw everything
 4. **Bob:** Computes shared secret `b × A`
 5. **Both get the same result:** `(ab) × G`
 
-### Why It's Secure
+This is an example of the commutative property in action. It encodes the secret parameter, while keeping it nigh impossible for a malicious agent to infer or compute.
 
-**Eavesdropper sees:**
-- G, A, B (all public)
-
-**Eavesdropper needs:**
+The eacesdropper would need:
 - Secret `a` or `b` to compute shared secret
-- This is a good example of the discrete logarithm problem, in that it is computationally infeasible to reverse this operation.
----
+- This is a good example of the elliptic curve discrete logarithm problem (ECDLP), in that it is computationally infeasible to reverse this operation.
+But the only thing the eavesdropper sees is:
+- G, A, B (all public)
 
 **Key Functions:**
 ```python
@@ -65,14 +63,11 @@ double_point(p)             # Point doubling
 find_mod_inv(n, p)          # Modular inverse for division
 ```
 
----
-
 ## Running
 
 ```bash
 python main.py
 ```
-
 ---
 
 ## Educational Features
@@ -84,18 +79,12 @@ python main.py
 -  Edge cases (point at infinity, y=0)
 -  Full ECDH protocol
 -  Man-in-the-middle simulation
-
-**Learn:**
-- Finite field arithmetic (mod 97)
-- Elliptic curve geometry
-- Discrete logarithm hardness
-- Public-key cryptography principles
-
+-  Finite field arithmetic (mod 97)
+-  Elliptic curve geometry
+-  Discrete logarithm hardness
+-  Public-key cryptography principles
 ---
 
-**The math is identical in real systems, just bigger**
-
-This implementation uses mod 97 (not 17) because larger primes have points with higher order, avoiding "point at infinity" edge cases.
 
 ---
 
@@ -107,6 +96,11 @@ This exact protocol (with 256-bit numbers) secures:
 - Bitcoin/Ethereum (transactions)
 - SSH (remote access)
 - VPNs (network tunnels)
+
+
+**The math is identical in real systems, just a lot bigger**
+
+This implementation uses mod 97 (not 17) because larger primes have points with higher order, avoiding "point at infinity" edge cases. Real systems use gigantic primes.
 
 ---
 
