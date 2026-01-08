@@ -138,6 +138,7 @@ To keep the result of f(x) = 2x bounded in the field, we need mod 5.
 f(x) = 2x mod 5. So when we plug in 3, we get 1. 
 
 *2(3) = 6*
+
 *6 mod 5 = 1*
 
 This is a demonstration of the non-monotonic nature of the field.
